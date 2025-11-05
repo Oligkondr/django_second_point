@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from authors import views
+from authors.views import AuthorsView
 
 urlpatterns = [
-    path('', views.test, name='test'),
+    path('', AuthorsView.as_view(), name='authors'),
+    path('<int:author_id>/', AuthorsView.as_view(), name='author'),
+    path('test', views.test, name='test'),
 ]
