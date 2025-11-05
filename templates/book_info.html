@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="book-info">
+    <h1>Book info:</h1>
+    {% if book %}
+    <p>Title: {{ book.title }}</p>
+    <p>Author: {{ book.author.first_name }} {{ book.author.last_name }}</p>
+    <p>ISBN: {{ book.isbn }}</p>
+    <p>Publication Year: {{ book.publication_year }}</p>
+    <p>Genres: {{ book.genres.all }}</p>
+    <p>Co-authors: {{ book.book.co_authors.all }}</p>
+    {% else %}
+    <p>No book</p>
+    {% endif %}
+</div>
+</body>
+</html>
