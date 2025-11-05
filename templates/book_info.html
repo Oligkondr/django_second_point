@@ -6,17 +6,29 @@
 </head>
 <body>
 <div class="book-info">
-    <h1>Book info:</h1>
-    {% if book %}
-    <p>Title: {{ book.title }}</p>
-    <p>Author: {{ book.author.first_name }} {{ book.author.last_name }}</p>
+    <a href="{% url 'books_list' %}">Список книг</a>
+
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
     <p>ISBN: {{ book.isbn }}</p>
     <p>Publication Year: {{ book.publication_year }}</p>
-    <p>Genres: {{ book.genres.all }}</p>
-    <p>Co-authors: {{ book.book.co_authors.all }}</p>
-    {% else %}
-    <p>No book</p>
-    {% endif %}
+    <p>Summary: {{ book.summary }}</p>
+
+    <h2>Редактировать</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <form method="post" action="{% url 'book' book.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Удалить</button>
+    </form>
+
 </div>
 </body>
 </html>

@@ -1,18 +1,34 @@
 from django import forms
 
-from books.models import Book
+from authors.models import Author
+from books.models import Book, Genre
 
 
 class BookForm(forms.ModelForm):
+    author = forms.ModelChoiceField(
+        queryset=Author.objects.all(),
+        required=False,
+        empty_label="Select author"
+    )
+
+    co_authors = forms.ModelMultipleChoiceField(
+        queryset=Author.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    genres = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+
     class Meta:
         model = Book
         fields = ['title', 'author', 'isbn', 'publication_year', 'genres', 'co_authors', 'summary']
         widgets = {
             'title': forms.TextInput(),
-            'author': forms.TextInput(),
-            'isbn': forms.NumberInput(),
+            'isbn': forms.TextInput(),
             'publication_year': forms.DateInput(),
-            'genres': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'co_authors': forms.TextInput(),
             'summary': forms.Textarea(),
         }

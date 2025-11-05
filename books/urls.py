@@ -17,11 +17,11 @@ Including another URLconf
 from django.urls import path
 
 from books import views
-from books.views import BooksView
+from books.views import BooksView, BookCreateView
 
 urlpatterns = [
+    path('', BooksView.as_view(), name='books_list'),
+    path('new/', BookCreateView.as_view(), name='create'),
+    path('<int:book_id>/', BooksView.as_view(), name='book'),
     path('test/', views.test, name='test'),
-    path('', BooksView.as_view(), name='book_list'),
-    # path('<int:book_id>/', BooksView.as_view(), name='book_list'),
-    path('new/', views.create, name='create'),
 ]

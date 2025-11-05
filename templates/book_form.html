@@ -5,12 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        {{ form.as_p }}
-    </div>
-    <button type="submit">Save</button>
-</form>
+<div class="book-form">
+    <a href="{% url 'books_list' %}">Список книг</a>
+
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+
+</div>
 </body>
 </html>
